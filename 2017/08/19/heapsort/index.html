@@ -6,18 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://shenke93.github.io">
-  <title>Distant Land</title>
+  <title>Heapsort [Algo] | Distant Land</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Ke SHEN&apos;s personal blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Distant Land">
-<meta property="og:url" content="http://shenke93.github.io/index.html">
+  <meta name="description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. HeapOne way to implement the (binary) heap data structur">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Heapsort [Algo]">
+<meta property="og:url" content="http://shenke93.github.io/2017/08/19/heapsort/index.html">
 <meta property="og:site_name" content="Distant Land">
-<meta property="og:description" content="Ke SHEN&apos;s personal blog">
+<meta property="og:description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. HeapOne way to implement the (binary) heap data structur">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://shenke93.github.io/content/images/Heapsort/figure1.png">
+<meta property="og:image" content="http://shenke93.github.io/content/images/Heapsort/figure2.png">
+<meta property="og:image" content="http://shenke93.github.io/content/images/Heapsort/figure3.png">
+<meta property="og:image" content="http://shenke93.github.io/content/images/Heapsort/figure4.png">
+<meta property="og:image" content="http://shenke93.github.io/content/images/Heapsort/figure5.png">
+<meta property="og:updated_time" content="2017-08-26T15:30:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Distant Land">
-<meta name="twitter:description" content="Ke SHEN&apos;s personal blog">
+<meta name="twitter:title" content="Heapsort [Algo]">
+<meta name="twitter:description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. HeapOne way to implement the (binary) heap data structur">
+<meta name="twitter:image" content="http://shenke93.github.io/content/images/Heapsort/figure1.png">
   
     <link rel="alternative" href="/atom.xml" title="Distant Land" type="application/atom+xml">
   
@@ -141,95 +148,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-priorityqueue" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-heapsort" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/27/priorityqueue/">Priority queues [Algo]</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/27/priorityqueue/" class="archive-article-date">
-  	<time datetime="2017-08-27T17:16:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>This is one of the reading notes of <em>Introduction to Algorithm, 3rd edition</em>. Algorithms are presented in pseudo-code and implemented in Java.</p>
-<h4 id="1-Priority-Queue"><a href="#1-Priority-Queue" class="headerlink" title="1. Priority Queue"></a>1. Priority Queue</h4><p>A <strong>priority queue</strong> is a data structure for maintaining a set S of elements, each with an associated value called a <strong>key</strong>.</p>
-<p>Use case: schedule jobs on a shared computer,<br>event-driven simulator.</p>
-<p>We use a <strong>heap</strong> to implement a priority queue.</p>
-<h4 id="2-MAXIMUM"><a href="#2-MAXIMUM" class="headerlink" title="2. MAXIMUM"></a>2. MAXIMUM</h4><p><strong>MAXIMUM(S)</strong> returns the element of S with the largest key. We use <strong>HEAP-MAXIMUM</strong> to implement the MAXIMUM operation in O(1) time.</p>
-<p><img src="/content/images/Priorityqueue/figure1.png" alt="Figure 1"></p>
-<h4 id="3-EXTRACT-MAX"><a href="#3-EXTRACT-MAX" class="headerlink" title="3. EXTRACT-MAX"></a>3. EXTRACT-MAX</h4><p><strong>EXTRACT-MAX(S)</strong> removes and returns the element of S with the largest key. We use <strong>HEAP-EXTRACT-MAX</strong> to implement this operation in O(lgn) time.</p>
-<p><img src="/content/images/Priorityqueue/figure2.png" alt="Figure 2"></p>
-<h4 id="4-INCREASE-KEY"><a href="#4-INCREASE-KEY" class="headerlink" title="4. INCREASE-KEY"></a>4. INCREASE-KEY</h4><p><strong>INCREASE-KEY(S,x,k)</strong> increases the value of element x’s key to the new value k, which is assumed to be at least as large as x’s current key value. We use <strong>HEAP-INCREASE-KEY</strong> to implement this operation in O(lgn) time.</p>
-<p>The idea of implementation is:</p>
-<pre><code>First update the key of element A[i] to its new value.
-Keep the max-heap property. Scan a path from this node toward the root to find a proper place for the newly increased key.
-</code></pre><p><img src="/content/images/Priorityqueue/figure3.png" alt="Figure 3"></p>
-<h4 id="5-INSERT"><a href="#5-INSERT" class="headerlink" title="5. INSERT"></a>5. INSERT</h4><p><strong>INSERT(S,x)</strong> inserts the element x into the set S, which is equivalent to the operation S = S U {x}. We use MAX-HEAP-INSERT to implement this operarion in O(lgn) time.</p>
-<p><img src="/content/images/Priorityqueue/figure4.png" alt="Figure 4"></p>
-<h4 id="6-Java-code"><a href="#6-Java-code" class="headerlink" title="6.Java code"></a>6.Java code</h4><p>Tips: To support insertion in O(1) time, I use ArrayList to implement the heap.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div></pre></td><td class="code"><pre><div class="line">package priorityqueue;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line"></div><div class="line">public class PriorityQueue &#123;</div><div class="line">	public static int parent(int i) &#123;</div><div class="line">		return (Math.round(i+1)/2) - 1;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int left(int i) &#123;</div><div class="line">		return 2*i + 1;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int right(int i) &#123;</div><div class="line">		return 2*i + 2;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void maxHeapify(ArrayList&lt;Integer&gt; A, int i, int heapsize) &#123;</div><div class="line">		int l = left(i);</div><div class="line">		int r = right(i);</div><div class="line">		int largest = 0;</div><div class="line">		if (l &lt;= heapsize - 1 &amp;&amp; A.get(l) &gt; A.get(i)) &#123;</div><div class="line">			largest = l;</div><div class="line">		&#125; else &#123;</div><div class="line">			largest = i;</div><div class="line">		&#125;</div><div class="line">		if (r &lt;= heapsize - 1 &amp;&amp; A.get(r) &gt; A.get(largest)) &#123;</div><div class="line">			largest = r;</div><div class="line">		&#125;</div><div class="line">		if (largest != i) &#123;</div><div class="line">			int t = A.get(i);</div><div class="line">			A.set(i, A.get(largest));</div><div class="line">			A.set(largest, t);</div><div class="line">			maxHeapify(A, largest, heapsize);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void buildMaxHeap(ArrayList&lt;Integer&gt; A) &#123;</div><div class="line">		for(int i = Math.round(A.size() / 2) - 1; i &gt;= 0; i--) &#123;</div><div class="line">			maxHeapify(A, i, A.size());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void heapSort(ArrayList&lt;Integer&gt; A) &#123;</div><div class="line">		buildMaxHeap(A);</div><div class="line">		int l = A.size();</div><div class="line">		for (int i = A.size() - 1; i &gt;= 1; i--) &#123;</div><div class="line">			int t = A.get(0);</div><div class="line">			A.set(0, A.get(i));</div><div class="line">			A.set(i, t);</div><div class="line">			l--;</div><div class="line">			maxHeapify(A, 0, l);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int heapMaximum(ArrayList&lt;Integer&gt; A) &#123;</div><div class="line">		return A.get(0);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int heapExtractMax(ArrayList&lt;Integer&gt; A) &#123;</div><div class="line">		if (A.size() &lt; 1) &#123;</div><div class="line">			System.out.println(&quot;Heap underflow&quot;);</div><div class="line">			return -1;</div><div class="line">		&#125;</div><div class="line">		int max = A.get(0);</div><div class="line">		int l = A.size();</div><div class="line">		A.set(0, A.get(l - 1));</div><div class="line">		l--;</div><div class="line">		A.remove(l);</div><div class="line">		maxHeapify(A, 0, l);</div><div class="line">		return max;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void maxHeapInsert(ArrayList&lt;Integer&gt; A, int key) &#123;</div><div class="line">		A.add(Integer.MIN_VALUE);</div><div class="line">		heapIncreaseKey(A, A.size() - 1, key);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void heapIncreaseKey(ArrayList&lt;Integer&gt; A, int i, int key) &#123;</div><div class="line">		if (key &lt; A.get(i)) &#123;</div><div class="line">			System.out.println(&quot;Now key is smaller than current key&quot;);</div><div class="line">		&#125;</div><div class="line">		A.set(i, key);</div><div class="line">		while (i &gt; 0 &amp;&amp; A.get(parent(i)) &lt; A.get(i)) &#123;</div><div class="line">			int t = A.get(i);</div><div class="line">			A.set(i, A.get(parent(i)));</div><div class="line">			A.set(parent(i), t);</div><div class="line">			i = parent(i);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int[] a1 = &#123;4, 1, 3, 2, 16, 9, 10, 14, 8, 7&#125;;</div><div class="line">		ArrayList&lt;Integer&gt; a = new ArrayList&lt;Integer&gt;();</div><div class="line">		for (int i = 0; i &lt; a1.length; i++) &#123;</div><div class="line">			a.add(a1[i]);</div><div class="line">		&#125;</div><div class="line">		buildMaxHeap(a);</div><div class="line">		System.out.println(a);</div><div class="line"></div><div class="line">		System.out.println(heapMaximum(a)); // 16</div><div class="line"></div><div class="line">		System.out.println(heapExtractMax(a)); // 16</div><div class="line">		System.out.println(heapMaximum(a)); // 14</div><div class="line">		System.out.println(a);</div><div class="line"></div><div class="line">		maxHeapInsert(a, 20);</div><div class="line">		System.out.println(a); // Start with 20</div><div class="line"></div><div class="line">		heapIncreaseKey(a, a.size()-2, 2);</div><div class="line">		System.out.println(a);</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/27/priorityqueue/">Show all >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-heapsort" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/19/heapsort/">Heapsort [Algo]</a>
+    <h1 class="article-title" itemprop="name">
+      Heapsort [Algo]
     </h1>
   
 
@@ -275,16 +201,79 @@ T(n) &lt;= T(2n/3) + O(1) using master theorem.
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/19/heapsort/">Show all >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://shenke93.github.io/2017/08/19/heapsort/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/08/27/priorityqueue/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Priority queues [Algo]
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -304,8 +293,12 @@ T(n) &lt;= T(2n/3) + O(1) using master theorem.
 
 
 
+  
+  
+  
 
   
+
   
 
 
@@ -328,8 +321,8 @@ T(n) &lt;= T(2n/3) + O(1) using master theorem.
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
