@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://shenke93.github.io">
-  <title>Archives: 2017/8 | Distant Land</title>
+  <title>Quicksort [Algo] | Distant Land</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Ke SHEN&apos;s personal blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Distant Land">
-<meta property="og:url" content="http://shenke93.github.io/archives/2017/08/index.html">
+  <meta name="description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. Description of quicksortFor sortinrg a typical subarray">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quicksort [Algo]">
+<meta property="og:url" content="http://shenke93.github.io/2017/08/27/quicksort/index.html">
 <meta property="og:site_name" content="Distant Land">
-<meta property="og:description" content="Ke SHEN&apos;s personal blog">
+<meta property="og:description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. Description of quicksortFor sortinrg a typical subarray">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://shenke93.github.io/content/images/Quicksort/figure1.png">
+<meta property="og:image" content="http://shenke93.github.io/content/images/Quicksort/figure2.png">
+<meta property="og:image" content="http://shenke93.github.io/content/images/Quicksort/figure3.png">
+<meta property="og:updated_time" content="2017-08-27T14:42:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Distant Land">
-<meta name="twitter:description" content="Ke SHEN&apos;s personal blog">
+<meta name="twitter:title" content="Quicksort [Algo]">
+<meta name="twitter:description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. Description of quicksortFor sortinrg a typical subarray">
+<meta name="twitter:image" content="http://shenke93.github.io/content/images/Quicksort/figure1.png">
   
     <link rel="alternative" href="/atom.xml" title="Distant Land" type="application/atom+xml">
   
@@ -141,103 +146,146 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-quicksort" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Quicksort [Algo]
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/27/quicksort/" class="archive-article-date">
+
+        
+        <a href="/2017/08/27/quicksort/" class="archive-article-date">
   	<time datetime="2017-08-27T17:16:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-27</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/27/quicksort/">Quicksort [Algo]</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This is one of the reading notes of <em>Introduction to Algorithm, 3rd edition</em>. Algorithms are presented in pseudo-code and implemented in Java.</p>
+<h4 id="1-Description-of-quicksort"><a href="#1-Description-of-quicksort" class="headerlink" title="1. Description of quicksort"></a>1. Description of quicksort</h4><p>For sortinrg a typical subarray A[p..r]:<br><strong>Devide:</strong> Partition (rearrange) the array A[p..r] into two (possibly empty) subarrays A[p..q-1] and A[q+1..r] such that each element of A[p..q-1] is less than or equal to A[q], each element of A[q+1..r] is bigger or greater than A[q].</p>
+<p><strong>Conquer:</strong> Sort the two subarrays A[p..q-1] and A[q+1..r] by recursive calls to quicksort.  </p>
+<p><strong>Combine:</strong> Because the subarrays are already sorted, no work is needed to combine them.</p>
+<p><img src="/content/images/Quicksort/figure1.png" alt="Figure 1"></p>
+<h4 id="2-Partitioning-the-array"><a href="#2-Partitioning-the-array" class="headerlink" title="2. Partitioning the array"></a>2. Partitioning the array</h4><p><img src="/content/images/Quicksort/figure2.png" alt="Figure 2"></p>
+<p>We state these properties as a loop invariant:</p>
+<pre><code>1. If p &lt;= k  &lt;= i, then A[k] &lt;= x.
+2. If i + 1 &lt;=  k &lt;= j - 1, then A[k] &gt; x.
+3. If k = r, then A[k] = x.
+</code></pre><p><img src="/content/images/Quicksort/figure3.png" alt="Figure 3"><br>The running time of PARTITION on the subarray A[p..r] is O(n), where n = r - p + 1.</p>
+<h4 id="3-Performance"><a href="#3-Performance" class="headerlink" title="3. Performance"></a>3. Performance</h4><p>The running time depends on whether the partitioning is balanced or unbalanced.<br>Worst-case: O(n*n)<br>Best-case: O(nlgn)<br>We cam randomly choose the pivot to avoid the Worst-case above.</p>
+<h4 id="4-Java-code"><a href="#4-Java-code" class="headerlink" title="4. Java code"></a>4. Java code</h4><p>Tips: To support insertion in O(1) time, I use ArrayList to implement the heap.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">package quicksort;</div><div class="line"></div><div class="line">import java.util.Arrays;</div><div class="line">import java.util.concurrent.ThreadLocalRandom;</div><div class="line"></div><div class="line">public class QuickSort &#123;</div><div class="line"></div><div class="line">	public static void quickSort(int[] A, int p, int r) &#123;</div><div class="line">		if (p &lt; r) &#123;</div><div class="line">			int q = partition(A, p, r);</div><div class="line">			quickSort(A, p, q-1);</div><div class="line">			quickSort(A, q+1, r);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void randomizedQuickSort(int[] A, int p, int r) &#123;</div><div class="line">		if (p &lt; r) &#123;</div><div class="line">			int q = randomizedPartition(A, p, r);</div><div class="line">			randomizedQuickSort(A, p, q-1);</div><div class="line">			randomizedQuickSort(A, q+1, r);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int partition(int[] A, int p, int r) &#123;</div><div class="line">		int x = A[r];</div><div class="line">		int i = p - 1;</div><div class="line">		for (int j = p; j &lt;= r - 1; j++) &#123;</div><div class="line">			if (A[j] &lt;= x) &#123;</div><div class="line">				i = i + 1;</div><div class="line">				int t = A[i];</div><div class="line">				A[i] = A[j];</div><div class="line">				A[j] = t;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		int t = A[i+1];</div><div class="line">		A[i+1] = A[r];</div><div class="line">		A[r] = t;</div><div class="line">		return i+1;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int randomizedPartition(int[] A, int p, int r) &#123;</div><div class="line">		int i = ThreadLocalRandom.current().nextInt(p, r + 1);</div><div class="line">		int t = A[i];</div><div class="line">		A[i] = A[r];</div><div class="line">		A[r] = t;</div><div class="line">		return partition(A, p, r);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int[] a1 = &#123;2, 8, 7, 1, 3, 5, 6, 4&#125;;</div><div class="line">		quickSort(a1, 0, a1.length-1);</div><div class="line">		System.out.println(Arrays.toString(a1));</div><div class="line"></div><div class="line">		int[] a2 = &#123;2, 8, 7, 1, 3, 5, 6, 4&#125;;</div><div class="line">		randomizedQuickSort(a2, 0, a2.length - 1);</div><div class="line">		System.out.println(Arrays.toString(a2));</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://shenke93.github.io/2017/08/27/quicksort/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/26/priorityqueue/" class="archive-article-date">
-  	<time datetime="2017-08-26T17:16:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-26</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/26/priorityqueue/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Priority queues [Algo]</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/26/priorityqueue/">Priority queues [Algo]</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/19/heapsort/" class="archive-article-date">
-  	<time datetime="2017-08-19T17:16:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/19/heapsort/">Heapsort [Algo]</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -260,8 +308,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
