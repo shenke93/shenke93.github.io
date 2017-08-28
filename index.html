@@ -143,6 +143,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-sychronization" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/28/sychronization/">Synchronization [Java]</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/28/sychronization/" class="archive-article-date">
+  	<time datetime="2017-08-28T21:48:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This is one of the reading notes of <em><a href="http://docs.oracle.com/javase/tutorial/essential/concurrency/sync.html" target="_blank" rel="external">Oracle Java Documentation</a></em>.</p>
+<h3 id="Synchronization"><a href="#Synchronization" class="headerlink" title="Synchronization"></a>Synchronization</h3><p><strong>Thread Interference</strong> describes how errors are introduced when multiple threads access shared data.<br><strong>Memory Consistency Errors</strong> describes errors that result from inconsistent views of shared memory.<br><strong>Synchronized Methods</strong> describes a simple idiom that can effectively prevent thread interference and memory consistency errors.<br><strong>Implicit Locks and Synchronization</strong> describes a more general synchronization idiom, and describes how synchronization is based on implicit locks.<br><strong>Atomic Access</strong> talks about the general idea of operations that can’t be interfered with by other threads.  </p>
+<h4 id="1-Thread-Interference"><a href="#1-Thread-Interference" class="headerlink" title="1. Thread Interference"></a>1. Thread Interference</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">class Counter &#123;</div><div class="line">    private int c = 0;</div><div class="line"></div><div class="line">    public void increment() &#123;</div><div class="line">        c++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void decrement() &#123;</div><div class="line">        c--;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public int value() &#123;</div><div class="line">        return c;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>If a <em>Counter</em> object is referenced from multiple threads, interference between threads may happened.</p>
+<h4 id="2-Memory-Consistency-Errors"><a href="#2-Memory-Consistency-Errors" class="headerlink" title="2. Memory Consistency Errors"></a>2. Memory Consistency Errors</h4><p><em>Memory consistency errors</em> occur when different threads have inconsistent views of what should be the same data.</p>
+<p>The key to avoiding memory consistency errors is understanding the <em>happens-before</em> relationship. <strong>This relationship is simply a guarantee that memory writes by one specific statement are visible to another specific statement</strong>.</p>
+<p>Example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int counter = 0;</div></pre></td></tr></table></figure></p>
+<p>The <em>counter</em> field is shared between two threads, A and B. Suppose thread A increments <em>counter</em>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">counter++;</div></pre></td></tr></table></figure></p>
+<p>Then shortly afterwards, thread B prints out Counter:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">System.out.println(counter);</div></pre></td></tr></table></figure></p>
+<p>If the two statements had been executed in the same thread, it would be safe to assume that the value printed out would be “1”. But if the two statements are executed in separate threads, the value printed out might well be “0”, because <strong>there’s no guarantee that thread A’s change to counter will be visible to thread B</strong> — unless the programmer has established a happens-before relationship between these two statements.</p>
+<p>There are several actions that create happens-before relationships. One of them is <strong>synchronization</strong>.</p>
+<p>We’ve already seen two actions that create happens-before relationships.</p>
+<ul>
+<li>When a statement invokes <em>Thread.start</em>, every statement that has a happens-before relationship with that statement also has a happens-before relationship with every statement executed by the new thread.</li>
+<li>When a thread terminates and causes a <em>Thread.join</em> in another thread to return, then all the statements executed by the terminated thread have a happens-before relationship with all the statements following the successful join.</li>
+</ul>
+<h4 id="3-Synchronized-Methods"><a href="#3-Synchronized-Methods" class="headerlink" title="3. Synchronized Methods"></a>3. Synchronized Methods</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">  public class SynchronizedCounter &#123;</div><div class="line">    private int c = 0;</div><div class="line"></div><div class="line">    public synchronized void increment() &#123;</div><div class="line">        c++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public synchronized void decrement() &#123;</div><div class="line">        c--;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public synchronized int value() &#123;</div><div class="line">        return c;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>If count is an instance of SynchronizedCounter, then making these methods synchronized has two effects:</p>
+<ul>
+<li>First, it is not possible for two invocations of synchronized methods on the same object to interleave. When one thread is executing a synchronized method for an object, <strong>all other threads that invoke synchronized methods for the same object block (suspend execution)</strong> until the first thread is done with the object.</li>
+<li>Second, when a synchronized method exits, it <strong>automatically establishes a happens-before relationship with any subsequent invocation of a synchronized method for the same object.</strong> This guarantees that changes to the state of the object are visible to all threads.</li>
+</ul>
+<p>Note that constructors cannot be synchronized — using the synchronized keyword with a constructor is a syntax error. Synchronizing constructors doesn’t make sense, because <strong>only the thread that creates an object should have access to it while it is being constructed.</strong></p>
+<p>Synchronized methods enable a simple strategy for preventing thread interference and memory consistency errors: if an object is visible to more than one thread, <strong>all reads or writes to that object’s variables are done through synchronized methods.</strong> (An important exception: final fields, which cannot be modified after the object is constructed, can be safely read through non-synchronized methods, once the object is constructed) This strategy is effective, but can present problems with <strong>liveness.</strong></p>
+<h4 id="4-Intrinsic-Locks-and-Synchronization"><a href="#4-Intrinsic-Locks-and-Synchronization" class="headerlink" title="4. Intrinsic Locks and Synchronization"></a>4. Intrinsic Locks and Synchronization</h4><p>Synchronization is built around an internal entity known as the <em>intrinsic lock</em> or <em>monitor lock</em>.</p>
+<p>Every object has an intrinsic lock associated with it. By convention, a thread that needs exclusive and consistent access to an object’s fields has to <strong>acquire</strong> the object’s intrinsic lock before accessing them, and then <strong>release</strong> the intrinsic lock when it’s done with them. A thread is said to own the intrinsic lock between the time it has acquired the lock and released the lock. As long as a thread owns an intrinsic lock, <strong>no other thread can acquire the same lock</strong>. The other thread will block when it attempts to acquire the lock.</p>
+<p>When a thread releases an intrinsic lock, a happens-before relationship is established between that action and any subsequent acquisition of the same lock.</p>
+<h5 id="4-1-Locks-in-Synchronized-Methods"><a href="#4-1-Locks-in-Synchronized-Methods" class="headerlink" title="4.1 Locks in Synchronized Methods"></a>4.1 Locks in Synchronized Methods</h5><p>When a thread invokes a synchronized method, it automatically acquires the intrinsic lock for that method’s object and releases it when the method returns. The lock release occurs even if the return was caused by an uncaught exception.</p>
+<p> When a static synchronized method is invoked, the thread acquires the intrinsic lock for the Class object associated with the class. Thus access to class’s static fields is controlled by a lock that’s distinct from the lock for any instance of the class.</p>
+<h5 id="4-2-Synchronized-Statements"><a href="#4-2-Synchronized-Statements" class="headerlink" title="4.2 Synchronized Statements"></a>4.2 Synchronized Statements</h5><p>Unlike synchronized methods, synchronized statements must specify the object that provides the intrinsic lock:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public void addName(String name) &#123;</div><div class="line">    synchronized(this) &#123;</div><div class="line">        lastName = name;</div><div class="line">        nameCount++;</div><div class="line">    &#125;</div><div class="line">    nameList.add(name);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>In this example, the addName method needs to synchronize changes to lastName and nameCount, but also needs to avoid synchronizing invocations of other objects’ methods.</p>
+<p>Synchronized statements are also useful for improving concurrency with fine-grained synchronization.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class MsLunch &#123;</div><div class="line">    private long c1 = 0;</div><div class="line">    private long c2 = 0;</div><div class="line">    private Object lock1 = new Object();</div><div class="line">    private Object lock2 = new Object();</div><div class="line"></div><div class="line">    public void inc1() &#123;</div><div class="line">        synchronized(lock1) &#123;</div><div class="line">            c1++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void inc2() &#123;</div><div class="line">        synchronized(lock2) &#123;</div><div class="line">            c2++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p> for example, class MsLunch has two instance fields, c1 and c2, that are never used together. All updates of these fields must be synchronized, but there’s no reason to prevent an update of c1 from being interleaved with an update of c2 — and doing so reduces concurrency by creating unnecessary blocking. Instead of using synchronized methods or otherwise using the lock associated with this, we create two objects solely to provide locks.</p>
+<h5 id="4-3-Reentrant-Synchronization"><a href="#4-3-Reentrant-Synchronization" class="headerlink" title="4.3 Reentrant Synchronization"></a>4.3 Reentrant Synchronization</h5><p> Allowing a thread to acquire the same lock more than once enables <em>reentrant synchronization</em>.</p>
+<h4 id="5-Atomic-Access"><a href="#5-Atomic-Access" class="headerlink" title="5. Atomic Access"></a>5. Atomic Access</h4><p>In programming, an <em>atomic action</em> is one that effectively happens all at once. An atomic action cannot stop in the middle: it either happens completely, or it doesn’t happen at all.</p>
+<p>Actions you can specify that are atomic:</p>
+<ul>
+<li>Reads and writes are atomic for reference variables and for most primitive variables (all types except long and double).</li>
+<li>Reads and writes are atomic for all variables declared <strong>volatile</strong> (including long and double variables).</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/28/sychronization/">Show all >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-quicksort" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
