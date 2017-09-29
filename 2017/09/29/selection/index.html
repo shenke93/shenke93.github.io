@@ -6,23 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://shenke93.github.io">
-  <title>Sorting in linear time [Algo] | Distant Land</title>
+  <title>Selection [Algo] | Distant Land</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. Counting sortCounting sort assumes that each of the n el">
+  <meta name="description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. Minimum and maximumTo find the max/min element in a set">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Sorting in linear time [Algo]">
-<meta property="og:url" content="http://shenke93.github.io/2017/09/23/sortlinear/index.html">
+<meta property="og:title" content="Selection [Algo]">
+<meta property="og:url" content="http://shenke93.github.io/2017/09/29/selection/index.html">
 <meta property="og:site_name" content="Distant Land">
-<meta property="og:description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. Counting sortCounting sort assumes that each of the n el">
+<meta property="og:description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. Minimum and maximumTo find the max/min element in a set">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://shenke93.github.io/content/images/Linearsort/figure1.png">
-<meta property="og:image" content="http://shenke93.github.io/content/images/Linearsort/figure2.png">
-<meta property="og:image" content="http://shenke93.github.io/content/images/Linearsort/figure3.png">
-<meta property="og:updated_time" content="2017-09-23T15:14:35.000Z">
+<meta property="og:image" content="http://shenke93.github.io/content/images/Selection/figure1.png">
+<meta property="og:image" content="http://shenke93.github.io/content/images/Selection/figure2.png">
+<meta property="og:updated_time" content="2017-09-29T20:06:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sorting in linear time [Algo]">
-<meta name="twitter:description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. Counting sortCounting sort assumes that each of the n el">
-<meta name="twitter:image" content="http://shenke93.github.io/content/images/Linearsort/figure1.png">
+<meta name="twitter:title" content="Selection [Algo]">
+<meta name="twitter:description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. Minimum and maximumTo find the max/min element in a set">
+<meta name="twitter:image" content="http://shenke93.github.io/content/images/Selection/figure1.png">
   
     <link rel="alternative" href="/atom.xml" title="Distant Land" type="application/atom+xml">
   
@@ -146,20 +145,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-sortlinear" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-selection" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Sorting in linear time [Algo]
+      Selection [Algo]
     </h1>
   
 
         
-        <a href="/2017/09/23/sortlinear/" class="archive-article-date">
-  	<time datetime="2017-09-23T14:10:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-23</time>
+        <a href="/2017/09/29/selection/" class="archive-article-date">
+  	<time datetime="2017-09-29T15:46:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-29</time>
 </a>
         
       </header>
@@ -167,15 +166,13 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>This is one of the reading notes of <em>Introduction to Algorithm, 3rd edition</em>. Algorithms are presented in pseudo-code and implemented in Java.</p>
-<h4 id="1-Counting-sort"><a href="#1-Counting-sort" class="headerlink" title="1. Counting sort"></a>1. Counting sort</h4><p><strong>Counting sort</strong> assumes that each of the n elements is an integer in the range of 0 to k. Counting sort determines for each input element x, <strong>the number of elements less than x</strong>.<br>We assume that the input array is A[1..n], A.length = n. We require two other arrays: the array B[1..n] holds the sorted output, and the array C[0..k] provides temporary working storage.</p>
-<p><img src="/content/images/Linearsort/figure1.png" alt="Figure 1"></p>
-<p>The running time is O(n) and this algo is stable.</p>
-<p>Java Code:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">package countingsort;</div><div class="line"></div><div class="line">import java.util.Arrays;</div><div class="line"></div><div class="line">public class Solution &#123;</div><div class="line">	public static void countingSort(int[] A, int[] B, int k) &#123;</div><div class="line">		int[] C = new int[k+1];</div><div class="line">		for (int i = 0; i &lt; k+1; i++) &#123;</div><div class="line">			C[i] = 0;</div><div class="line">		&#125;</div><div class="line">		for (int j = 0; j &lt; A.length; j++) &#123;</div><div class="line">			C[A[j]] = C[A[j]] + 1;</div><div class="line">		&#125;</div><div class="line">		for (int i = 1; i &lt; k+1; i++) &#123;</div><div class="line">			C[i] = C[i] + C[i-1];</div><div class="line">		&#125;</div><div class="line">		for (int j = A.length - 1; j &gt;=0; j--) &#123;</div><div class="line">			B[C[A[j]] - 1] = A[j];</div><div class="line">			C[A[j]] = C[A[j]] - 1;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int[] A = &#123;2, 5, 3, 0, 2, 3, 0, 3&#125;;</div><div class="line">		int[] B = new int[8];</div><div class="line">		countingSort(A, B, 5);</div><div class="line">		System.out.println(Arrays.toString(B));</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="2-Radix-sort"><a href="#2-Radix-sort" class="headerlink" title="2. Radix sort"></a>2. Radix sort</h4><p><img src="/content/images/Linearsort/figure2.png" alt="Figure 2"></p>
-<p>Java Code:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">package radixsort;</div><div class="line"></div><div class="line">import java.util.Arrays;</div><div class="line"></div><div class="line">public class Solution &#123;</div><div class="line">	public static int getMax(int[] A) &#123;</div><div class="line">		int mx = A[0];</div><div class="line">		for (int i = 0; i &lt; A.length; i++) &#123;</div><div class="line">			if (A[i] &gt; mx)</div><div class="line">				mx = A[i];</div><div class="line">		&#125;</div><div class="line">		return mx;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void radixSort(int[] A) &#123;</div><div class="line">		int m = getMax(A);</div><div class="line"></div><div class="line">		for (int exp = 1; m/exp &gt;0; exp *= 10) &#123;</div><div class="line">			countingSort(A, exp);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void countingSort(int[] A, int exp) &#123;</div><div class="line">		int[] C = new int[10];</div><div class="line">		int[] B = new int[A.length]; // output</div><div class="line">		Arrays.fill(C, 0);</div><div class="line"></div><div class="line">		for (int j = 0; j &lt; A.length; j++) &#123;</div><div class="line">			C[(A[j]/exp) % 10] ++;</div><div class="line">		&#125;</div><div class="line">		for (int i = 1; i &lt; 10; i++) &#123;</div><div class="line">			C[i] = C[i] + C[i-1];</div><div class="line">		&#125;</div><div class="line">		for (int j = A.length - 1; j &gt;=0; j--) &#123;</div><div class="line">			B[C[(A[j]/exp) % 10] - 1] = A[j];</div><div class="line">			C[(A[j]/exp) % 10] --;</div><div class="line">		&#125;</div><div class="line">		for (int i = 0; i &lt; A.length; i++) &#123;</div><div class="line">			A[i] = B[i];</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int[] A = &#123;329, 457, 657, 839, 436, 720, 355&#125;;</div><div class="line">		radixSort(A);</div><div class="line">		System.out.println(Arrays.toString(A));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="Bucket-sort"><a href="#Bucket-sort" class="headerlink" title="Bucket sort"></a>Bucket sort</h4><p><strong>Bucket sort</strong> assumes that the input is generated by a random process that distributes elements uniformly and independently over the interval [0, 1). It has an average case running time of O(n).<br>Bucket sort divides the interval [0, 1) into n equal-sized subintervals, or <strong>buckets</strong>, and then distributes the n input numbers into the buckets. (A uniform and independent distribution assures that not too many elements fall into one bucket).<br>We assume that the input is an n-element array A and that each element A[i] is in the range [0, 1]. We require also an array B[0..n-1] of linked lists (buckets) and assumes that there is a mechanism for maintaining such lists.</p>
-<p><img src="/content/images/Linearsort/figure3.png" alt="Figure 3"></p>
-<p>Java Code:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">package bucketsort;</div><div class="line"></div><div class="line">import java.util.Arrays;</div><div class="line">import java.util.Collections;</div><div class="line">import java.util.LinkedList;</div><div class="line"></div><div class="line">public class Solution &#123;</div><div class="line">	public static void bucketSort(double[] A) &#123;</div><div class="line">		int n = A.length;</div><div class="line">		// Initialize an array of LinkedList</div><div class="line">		@SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">		LinkedList&lt;Double&gt;[] B = new LinkedList[n];</div><div class="line">		for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">			B[i] = new LinkedList&lt;Double&gt;();</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">			// System.out.println((int) Math.round((n*A[i])));</div><div class="line">			B[(int) Math.round((n*A[i]))].add(A[i]);</div><div class="line">		&#125;</div><div class="line">		for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">			Collections.sort(B[i]);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		// Concatenate elements in LinkedLists to an array</div><div class="line">		int m = 0;</div><div class="line">		for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">			int j = B[i].size();</div><div class="line">			for (int k = 0; k &lt; j; k++) &#123;</div><div class="line">				A[m] = B[i].get(k);</div><div class="line">				m++;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		double[] A = &#123;.78, .17, .39, .26, .72, .94, .21, .12, .23, .68&#125;;</div><div class="line">		bucketSort(A);</div><div class="line">		System.out.println(Arrays.toString(A));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="1-Minimum-and-maximum"><a href="#1-Minimum-and-maximum" class="headerlink" title="1. Minimum and maximum"></a>1. Minimum and maximum</h4><p>To find the max/min element in a set of n elements, we can use a brute force method with n - 1 comparisons. We assume that the set resides in array <em>A</em>, where <em>A.length = n</em>.</p>
+<p><img src="/content/images/Selection/figure1.png" alt="Figure 1"></p>
+<p>We can also simultaneously find minimum and maximum with fewer than 2n - 2 comparisons:<br>We compare pairs of elements from the input first with <em>each other</em>, and then we compare the smaller with the current minimum and the larger with the current maximum.</p>
+<h4 id="2-Selection-in-expected-liner-time"><a href="#2-Selection-in-expected-liner-time" class="headerlink" title="2. Selection in expected liner time"></a>2. Selection in expected liner time</h4><p>The following code for RANDOMIZED-SELECT returns the ith smallest element of the array A[p..r].</p>
+<p><img src="/content/images/Selection/figure2.png" alt="Figure 2"></p>
+<p>Java code:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">package randomizedselect;</div><div class="line"></div><div class="line">import java.util.concurrent.ThreadLocalRandom;</div><div class="line"></div><div class="line">public class Solution &#123;</div><div class="line">	public static int randomizedSelect(int[] A, int p, int r, int i) &#123;</div><div class="line">		if (p == r) &#123;</div><div class="line">			return A[p];</div><div class="line">		&#125;</div><div class="line">		int q = randomizedPartition(A, p, r);</div><div class="line">		int k = q - p + 1;</div><div class="line">		if (i == k) &#123;</div><div class="line">			return A[q];</div><div class="line">		&#125; else if (i &lt; k) &#123;</div><div class="line">			return randomizedSelect(A, p, q-1, i);</div><div class="line">		&#125; else &#123;</div><div class="line">			return randomizedSelect(A, q+1, r, i-k);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int randomizedPartition(int[] A, int p, int r) &#123;</div><div class="line">		int i = ThreadLocalRandom.current().nextInt(p, r + 1);</div><div class="line">		int t = A[i];</div><div class="line">		A[i] = A[r];</div><div class="line">		A[r] = t;</div><div class="line">		return partition(A, p, r);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int partition(int[] A, int p, int r) &#123;</div><div class="line">		int x = A[r];</div><div class="line">		int i = p - 1;</div><div class="line">		for (int j = p; j &lt; r; j++) &#123;</div><div class="line">			if (A[j] &lt;= x) &#123;</div><div class="line">				i = i + 1;</div><div class="line">				int t = A[i];</div><div class="line">				A[i] = A[j];</div><div class="line">				A[j] = t;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		int t = A[i+1];</div><div class="line">		A[i+1] = A[r];</div><div class="line">		A[r] = t;</div><div class="line">		return i+1;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int[] input = &#123;7, 6, 3, 2, 4, 5, 1&#125;;</div><div class="line">		System.out.print(randomizedSelect(input, 0, input.length - 1, 1));</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="3-Selection-in-worst-case-linear-time"><a href="#3-Selection-in-worst-case-linear-time" class="headerlink" title="3. Selection in worst-case linear time"></a>3. Selection in worst-case linear time</h4><p>This method is similar to RANDOMIZED-SELECT. We divide the set into groups of 5 elements. We find the median of each group, and then we can easily find the median of the original set. Finally we use the same recursive way to search the element.</p>
 
       
 
@@ -234,7 +231,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://shenke93.github.io/2017/09/23/sortlinear/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://shenke93.github.io/2017/09/29/selection/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -248,18 +245,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/09/29/selection/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Selection [Algo]
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/28/sychronization/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Synchronization [Java]</div>
+    <a href="/2017/09/23/sortlinear/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Sorting in linear time [Algo]</div>
       <i class="icon-circle-right"></i>
     </a>
   

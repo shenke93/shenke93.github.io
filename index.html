@@ -143,6 +143,76 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-selection" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/29/selection/">Selection [Algo]</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/29/selection/" class="archive-article-date">
+  	<time datetime="2017-09-29T15:46:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This is one of the reading notes of <em>Introduction to Algorithm, 3rd edition</em>. Algorithms are presented in pseudo-code and implemented in Java.</p>
+<h4 id="1-Minimum-and-maximum"><a href="#1-Minimum-and-maximum" class="headerlink" title="1. Minimum and maximum"></a>1. Minimum and maximum</h4><p>To find the max/min element in a set of n elements, we can use a brute force method with n - 1 comparisons. We assume that the set resides in array <em>A</em>, where <em>A.length = n</em>.</p>
+<p><img src="/content/images/Selection/figure1.png" alt="Figure 1"></p>
+<p>We can also simultaneously find minimum and maximum with fewer than 2n - 2 comparisons:<br>We compare pairs of elements from the input first with <em>each other</em>, and then we compare the smaller with the current minimum and the larger with the current maximum.</p>
+<h4 id="2-Selection-in-expected-liner-time"><a href="#2-Selection-in-expected-liner-time" class="headerlink" title="2. Selection in expected liner time"></a>2. Selection in expected liner time</h4><p>The following code for RANDOMIZED-SELECT returns the ith smallest element of the array A[p..r].</p>
+<p><img src="/content/images/Selection/figure2.png" alt="Figure 2"></p>
+<p>Java code:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">package randomizedselect;</div><div class="line"></div><div class="line">import java.util.concurrent.ThreadLocalRandom;</div><div class="line"></div><div class="line">public class Solution &#123;</div><div class="line">	public static int randomizedSelect(int[] A, int p, int r, int i) &#123;</div><div class="line">		if (p == r) &#123;</div><div class="line">			return A[p];</div><div class="line">		&#125;</div><div class="line">		int q = randomizedPartition(A, p, r);</div><div class="line">		int k = q - p + 1;</div><div class="line">		if (i == k) &#123;</div><div class="line">			return A[q];</div><div class="line">		&#125; else if (i &lt; k) &#123;</div><div class="line">			return randomizedSelect(A, p, q-1, i);</div><div class="line">		&#125; else &#123;</div><div class="line">			return randomizedSelect(A, q+1, r, i-k);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int randomizedPartition(int[] A, int p, int r) &#123;</div><div class="line">		int i = ThreadLocalRandom.current().nextInt(p, r + 1);</div><div class="line">		int t = A[i];</div><div class="line">		A[i] = A[r];</div><div class="line">		A[r] = t;</div><div class="line">		return partition(A, p, r);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int partition(int[] A, int p, int r) &#123;</div><div class="line">		int x = A[r];</div><div class="line">		int i = p - 1;</div><div class="line">		for (int j = p; j &lt; r; j++) &#123;</div><div class="line">			if (A[j] &lt;= x) &#123;</div><div class="line">				i = i + 1;</div><div class="line">				int t = A[i];</div><div class="line">				A[i] = A[j];</div><div class="line">				A[j] = t;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		int t = A[i+1];</div><div class="line">		A[i+1] = A[r];</div><div class="line">		A[r] = t;</div><div class="line">		return i+1;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int[] input = &#123;7, 6, 3, 2, 4, 5, 1&#125;;</div><div class="line">		System.out.print(randomizedSelect(input, 0, input.length - 1, 1));</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="3-Selection-in-worst-case-linear-time"><a href="#3-Selection-in-worst-case-linear-time" class="headerlink" title="3. Selection in worst-case linear time"></a>3. Selection in worst-case linear time</h4><p>This method is similar to RANDOMIZED-SELECT. We divide the set into groups of 5 elements. We find the median of each group, and then we can easily find the median of the original set. Finally we use the same recursive way to search the element.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/29/selection/">Show all >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-sortlinear" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
