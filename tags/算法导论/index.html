@@ -6,26 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://shenke93.github.io">
-  <title>Heapsort [Algo] | Distant Land</title>
+  <title>Tag: 算法导论 | Distant Land</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. HeapOne way to implement the (binary) heap data structur">
-<meta name="keywords" content="算法导论">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Heapsort [Algo]">
-<meta property="og:url" content="http://shenke93.github.io/2017/08/19/heapsort/index.html">
+  <meta name="description" content="Ke SHEN&apos;s personal blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Distant Land">
+<meta property="og:url" content="http://shenke93.github.io/tags/算法导论/index.html">
 <meta property="og:site_name" content="Distant Land">
-<meta property="og:description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. HeapOne way to implement the (binary) heap data structur">
+<meta property="og:description" content="Ke SHEN&apos;s personal blog">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://shenke93.github.io/content/images/Heapsort/figure1.png">
-<meta property="og:image" content="http://shenke93.github.io/content/images/Heapsort/figure2.png">
-<meta property="og:image" content="http://shenke93.github.io/content/images/Heapsort/figure3.png">
-<meta property="og:image" content="http://shenke93.github.io/content/images/Heapsort/figure4.png">
-<meta property="og:image" content="http://shenke93.github.io/content/images/Heapsort/figure5.png">
-<meta property="og:updated_time" content="2017-10-04T14:40:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Heapsort [Algo]">
-<meta name="twitter:description" content="This is one of the reading notes of Introduction to Algorithm, 3rd edition. Algorithms are presented in pseudo-code and implemented in Java. 1. HeapOne way to implement the (binary) heap data structur">
-<meta name="twitter:image" content="http://shenke93.github.io/content/images/Heapsort/figure1.png">
+<meta name="twitter:title" content="Distant Land">
+<meta name="twitter:description" content="Ke SHEN&apos;s personal blog">
   
     <link rel="alternative" href="/atom.xml" title="Distant Land" type="application/atom+xml">
   
@@ -149,56 +141,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-heapsort" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Heapsort [Algo]
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/10/04/ basicdatastructure/" class="archive-article-date">
+  	<time datetime="2017-10-04T14:46:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/10/04/ basicdatastructure/">BasicDataStructure [Algo]</a>
     </h1>
   
 
-        
-        <a href="/2017/08/19/heapsort/" class="archive-article-date">
-  	<time datetime="2017-08-19T17:16:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>This is one of the reading notes of <em>Introduction to Algorithm, 3rd edition</em>. Algorithms are presented in pseudo-code and implemented in Java.</p>
-<h4 id="1-Heap"><a href="#1-Heap" class="headerlink" title="1. Heap"></a>1. Heap</h4><p>One way to implement the <strong>(binary) heap</strong> data structure is using an array object. An array A that represents a heap is an object with two attributes:<br><strong><em>A.length</em></strong>, which gives the number of elements in the array, and <strong><em>A.heap-size</em></strong>, which represents how many elements in the heap are sorted within array A.</p>
-<p><img src="/content/images/Heapsort/figure1.png" alt="Figure 1"></p>
-<p>For example, in the above picture, both A.length and A.heap-size is 10.</p>
-<p>Given an index i of a node, we can get its parent, left child and right child:</p>
-<p><img src="/content/images/Heapsort/figure2.png" alt="Figure 2"></p>
-<p>A heap is a <strong>Max-heap</strong> if A[PARENT(i)] &gt;= A[i].</p>
-<p>A heap is a <strong>Min-heap</strong> if A[PARENT(i)] &lt;= A[i].</p>
-<h4 id="2-Maintaining-the-heap-property"><a href="#2-Maintaining-the-heap-property" class="headerlink" title="2. Maintaining the heap property"></a>2. Maintaining the heap property</h4><p>MAX-HEAPIFY lets the value at A[i] “float down” in the max-heap so that the subtree rooted at index i obeys the max-heap property.</p>
-<p><img src="/content/images/Heapsort/figure3.png" alt="Figure 3"></p>
-<p>The running time of MAX-HEAPIFY <strong>on a subtree of size n rooted at a given node i</strong> is <em>O(lgn)</em>.</p>
-<pre><code>Proof:
-size of right subtree: k  
-size of left subtree: 2k + 1  
-T(n) &lt;= T(2n/3) + O(1) using master theorem.
-</code></pre><p>The running time of MAX-HEAPIFY <strong>on a node of height <em>h</em></strong> has <em>O(h)</em>.</p>
-<h4 id="3-Building-a-heap"><a href="#3-Building-a-heap" class="headerlink" title="3. Building a heap"></a>3. Building a heap</h4><p>The idea is going through every node to use the MAX-HEAPIFY method. To optimize, we ignore nodes as a 1-element heap.<br><img src="/content/images/Heapsort/figure4.png" alt="Figure 4"></p>
-<p>The running time is <em>O(n)</em>. We can build a max-heap from an unordered array in <strong>linear time</strong>.</p>
-<h4 id="4-The-heapsort-algorithm"><a href="#4-The-heapsort-algorithm" class="headerlink" title="4. The heapsort algorithm"></a>4. The heapsort algorithm</h4><p>The idea is exchanging the biggest element of heap (the root of index 1) with the end element, and building a new heap with the rest elements.</p>
-<p><img src="/content/images/Heapsort/figure5.png" alt="Figure 5"></p>
-<h4 id="5-Java-code"><a href="#5-Java-code" class="headerlink" title="5. Java code"></a>5. Java code</h4><p>Tips: Java Array begins with index 0.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line">package heapsort;</div><div class="line"></div><div class="line">import java.util.Arrays;</div><div class="line"></div><div class="line">public class Heaps &#123;</div><div class="line"></div><div class="line">	public static int parent(int i) &#123;</div><div class="line">		return (Math.round(i+1)/2) - 1;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int left(int i) &#123;</div><div class="line">		return 2*i + 1;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static int right(int i) &#123;</div><div class="line">		return 2*i + 2;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void maxHeapify(int[] A, int i, int heapsize) &#123;</div><div class="line">		int l = left(i);</div><div class="line">		int r = right(i);</div><div class="line">		int largest = 0;</div><div class="line">		if (l &lt;= heapsize - 1 &amp;&amp; A[l] &gt; A[i]) &#123;</div><div class="line">			largest = l;</div><div class="line">		&#125; else &#123;</div><div class="line">			largest = i;</div><div class="line">		&#125;</div><div class="line">		if (r &lt;= heapsize - 1 &amp;&amp; A[r] &gt; A[largest]) &#123;</div><div class="line">			largest = r;</div><div class="line">		&#125;</div><div class="line">		if (largest != i) &#123;</div><div class="line">			int t = A[i];</div><div class="line">			A[i] = A[largest];</div><div class="line">			A[largest] = t;</div><div class="line">			maxHeapify(A, largest, heapsize);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void buildMaxHeap(int[] A) &#123;</div><div class="line">		for(int i = Math.round(A.length / 2) - 1; i &gt;= 0; i--) &#123;</div><div class="line">			maxHeapify(A, i, A.length);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void heapSort(int[] A) &#123;</div><div class="line">		buildMaxHeap(A);</div><div class="line">		int l = A.length;</div><div class="line">		for (int i = A.length - 1; i &gt;= 1; i--) &#123;</div><div class="line">			int t = A[0];</div><div class="line">			A[0] = A[i];</div><div class="line">			A[i] = t;</div><div class="line">			l--;</div><div class="line">			maxHeapify(A, 0, l);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int[] a1 = &#123;4, 1, 3, 2, 16, 9, 10, 14, 8, 7&#125;;</div><div class="line">		buildMaxHeap(a1);</div><div class="line">		System.out.println(Arrays.toString(a1));</div><div class="line">		heapSort(a1);</div><div class="line">		System.out.println(Arrays.toString(a1));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -210,108 +182,209 @@ T(n) &lt;= T(2n/3) + O(1) using master theorem.
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://shenke93.github.io/2017/08/19/heapsort/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2017/08/26/priorityqueue/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Priority queues [Algo]
-        
-      </div>
-    </a>
-  
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/09/29/selection/" class="archive-article-date">
+  	<time datetime="2017-09-29T15:46:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-29</time>
+</a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
+    	 
   
-  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/09/29/selection/">Selection [Algo]</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">算法导论</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/09/23/sortlinear/" class="archive-article-date">
+  	<time datetime="2017-09-23T14:10:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-23</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/09/23/sortlinear/">Sorting in linear time [Algo]</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">算法导论</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
   
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/08/27/quicksort/" class="archive-article-date">
+  	<time datetime="2017-08-27T17:16:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-27</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/08/27/quicksort/">Quicksort [Algo]</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">算法导论</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/08/26/priorityqueue/" class="archive-article-date">
+  	<time datetime="2017-08-26T17:16:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-26</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/08/26/priorityqueue/">Priority queues [Algo]</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">算法导论</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/08/19/heapsort/" class="archive-article-date">
+  	<time datetime="2017-08-19T17:16:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/08/19/heapsort/">Heapsort [Algo]</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">算法导论</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
+  
+
+    
 
 
           </div>
@@ -334,9 +407,9 @@ T(n) &lt;= T(2n/3) + O(1) using master theorem.
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
