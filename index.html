@@ -143,6 +143,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-binarysearchtree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/12/binarysearchtree/">Binary Search Tree [Algo]</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/12/binarysearchtree/" class="archive-article-date">
+  	<time datetime="2017-10-12T15:10:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This is one of the reading notes of <em>Introduction to Algorithm, 3rd edition</em>. Algorithms are presented in pseudo-code and implemented in Java.</p>
+<h4 id="1-Querying-a-binary-search-Tree"><a href="#1-Querying-a-binary-search-Tree" class="headerlink" title="1. Querying a binary search Tree"></a>1. Querying a binary search Tree</h4><p>Given a pointer to the root of the tree and a key k, TREE-SEARCH returns a pointer to a node with key k if one exists, otherwise it returns NIL.</p>
+<p><img src="/content/images/Binarysearchtree/figure1.png" alt="Figure 1"></p>
+<p>There is also an iterative version:</p>
+<p><img src="/content/images/Priorityqueue/figure2.png" alt="Figure 2"></p>
+<p>We can find an element in a binary search tree whose key is a minimun by following <em>left</em> child pointers from the root until we encounter a NIL. The following procedure returns a pointer to the minimum element in the subtree rooted at a given node x, which we assume to be non-NIL:</p>
+<p><img src="/content/images/Binarysearchtree/figure3.png" alt="Figure 3"></p>
+<p>For TREE-MAXIMUM the procedure is symmetric:</p>
+<p><img src="/content/images/Binarysearchtree/figure4.png" alt="Figure 4"></p>
+<p>Sometimes we need to find a successor of a node in a binary tree. If all keys are distinct, the successor of a node x is a node with the smallest key greater than <em>x.key</em>.</p>
+<p><img src="/content/images/Binarysearchtree/figure5.png" alt="Figure 5"></p>
+<p>The procedure TREE-PREDECESSOR is symmetric.</p>
+<h4 id="2-Insertion-and-deletion"><a href="#2-Insertion-and-deletion" class="headerlink" title="2. Insertion and deletion"></a>2. Insertion and deletion</h4><p>We use the procedure TREE-INSERT to insert a new value into a binary search tree T. The procedure takes a node z for which <em>z.key = v</em>, <em>z.left = NIL</em> and <em>z.right = NIL</em>.</p>
+<p><img src="/content/images/Binarysearchtree/figure6.png" alt="Figure 6"></p>
+<p>There are three cases to consider when deleting a node from binary search tree <em>T</em>:</p>
+<ol>
+<li>If z has no left child, we replace z by its right child.</li>
+<li>If z has just one child which is its left child, we replace z by its left child.</li>
+<li><p>z has both left child and right child. We find z’s successor y, which lies in z’s right subtree and has no left-child. We have two cases:</p>
+<p> If y is z’s right child, we replace z by y, leaving y’s right child alone.</p>
+<p> Otherwise, we first replace y by its own right child, and then we replace z by y.</p>
+</li>
+</ol>
+<p><img src="/content/images/Binarysearchtree/figure7.png" alt="Figure 7"></p>
+<p>We define a subroutine TRANSPLANT, which replaces one subtree as a child of its parent with another subtree. TRANSPLANT replaces the subtree rooted at node <em>u</em> with the subtree rooted at node <em>v</em>.</p>
+<p><img src="/content/images/Binarysearchtree/figure8.png" alt="Figure 8"></p>
+<p>TREE-DELETE procedure deletes node z from binary search tree T.</p>
+<p><img src="/content/images/Binarysearchtree/figure9.png" alt="Figure 9"></p>
+<h4 id="3-Java-Code"><a href="#3-Java-Code" class="headerlink" title="3. Java Code"></a>3. Java Code</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div></pre></td><td class="code"><pre><div class="line">package binarysearchtree;</div><div class="line"></div><div class="line">public class BinarySearchTree &#123;</div><div class="line">	// The key of head is 0</div><div class="line">	private Node head;</div><div class="line"></div><div class="line">	private class Node &#123;</div><div class="line">		private Node parent;</div><div class="line">		private Node left;</div><div class="line">		private Node right;</div><div class="line">		private Integer key;</div><div class="line"></div><div class="line">		public Node(Integer k) &#123;</div><div class="line">			key = k;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public Node(Integer k, Node p, Node l, Node r) &#123;</div><div class="line">			key = k;</div><div class="line">			parent = p;</div><div class="line">			left = l;</div><div class="line">			right = r;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public Node getParent() &#123;</div><div class="line">			return parent;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public void setParent(Node parent) &#123;</div><div class="line">			this.parent = parent;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public Node getLeft() &#123;</div><div class="line">			return left;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public void setLeft(Node left) &#123;</div><div class="line">			this.left = left;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public Node getRight() &#123;</div><div class="line">			return right;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public void setRight(Node right) &#123;</div><div class="line">			this.right = right;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public Integer getKey() &#123;</div><div class="line">			return key;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		public void setKey(Integer key) &#123;</div><div class="line">			this.key = key;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public BinarySearchTree() &#123;</div><div class="line">		head = new Node(0);</div><div class="line">		head.setParent(null);</div><div class="line">		head.setLeft(null);</div><div class="line">		head.setRight(null);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	// Usually x is the head of the tree, k is the value to search</div><div class="line">	public Node treeSearch(Node x, Integer k) &#123;</div><div class="line">		while (x != null &amp;&amp; k != x.getKey()) &#123;</div><div class="line">			if (k &lt; x.getKey()) &#123;</div><div class="line">				x = x.getLeft();</div><div class="line">			&#125; else &#123;</div><div class="line">				x = x.getRight();</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		return x;</div><div class="line">	&#125;</div><div class="line"></div><div class="line"></div><div class="line">	public Node treeMinimum(Node x) &#123;</div><div class="line">		while (x.getLeft() != null) &#123;</div><div class="line">			x = x.getLeft();</div><div class="line">		&#125;</div><div class="line">		return x;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public Node treeMaximum(Node x) &#123;</div><div class="line">		while (x.getRight() != null) &#123;</div><div class="line">			x = x.getRight();</div><div class="line">		&#125;</div><div class="line">		return x;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public Node treeSuccessor(Node x) &#123;</div><div class="line">		if (x.getRight() != null) &#123;</div><div class="line">			return treeMinimum(x.getRight());</div><div class="line">		&#125;</div><div class="line">		Node y = x.getParent();</div><div class="line">		while (y != null &amp;&amp; x == y.getRight()) &#123;</div><div class="line">			x = y;</div><div class="line">			y = y.getParent();</div><div class="line">		&#125;</div><div class="line">		return y;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public Node treePredecessor(Node x) &#123;</div><div class="line">		if (x.getLeft() != null) &#123;</div><div class="line">			return treeMaximum(x.getLeft());</div><div class="line">		&#125;</div><div class="line">		Node y = x.getParent();</div><div class="line">		while (y != null &amp;&amp; x == y.getLeft()) &#123;</div><div class="line">			x = y;</div><div class="line">			y = y.getParent();</div><div class="line">		&#125;</div><div class="line">		return y;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	// z.key = v, z.left = null, z.right = null</div><div class="line">	public void treeInsert(Node z) &#123;</div><div class="line">		Node y = null;</div><div class="line">		Node x = head;</div><div class="line">		while (x != null) &#123;</div><div class="line">			y = x;</div><div class="line">			if (z.getKey() &lt; x.getKey()) &#123;</div><div class="line">				x = x.getLeft();</div><div class="line">			&#125; else &#123;</div><div class="line">				x = x.getRight();</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		z.setParent(y);</div><div class="line">		if (y == null) &#123;</div><div class="line">			head = z;</div><div class="line">		&#125;</div><div class="line">		else if (z.getKey() &lt; y.getKey()) &#123;</div><div class="line">			y.setLeft(z);</div><div class="line">		&#125; else &#123;</div><div class="line">			y.setRight(z);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	// Replace subtree headed at node u with the subtree headed at node v</div><div class="line">	public void transplant(Node u, Node v) &#123;</div><div class="line">		if (u.getParent() == null) &#123;</div><div class="line">			head = v;</div><div class="line">		&#125; else if (u == u.getParent().getLeft()) &#123;</div><div class="line">			u.getParent().setLeft(v);</div><div class="line">		&#125; else &#123;</div><div class="line">			u.getParent().setRight(v);</div><div class="line">		&#125;</div><div class="line">		if (v != null) &#123;</div><div class="line">			v.setParent(u.getParent());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public void treeDelete(Node z) &#123;</div><div class="line">		if (z.left == null) &#123;</div><div class="line">			transplant(z, z.right);</div><div class="line">		&#125; else if (z.right == null) &#123;</div><div class="line">			transplant(z, z.left);</div><div class="line">		&#125; else &#123;</div><div class="line">			Node y = treeMinimum(z.right);</div><div class="line">			if (y.getParent() != z) &#123;</div><div class="line">				transplant(y, y.right);</div><div class="line">				y.right = z.right;</div><div class="line">				y.right.setParent(y);</div><div class="line">			&#125;</div><div class="line">			transplant(z, y);</div><div class="line">			y.left = z.left;</div><div class="line">			y.left.setParent(y);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		BinarySearchTree T = new BinarySearchTree();</div><div class="line">		Node n1 = T.new Node(12, null, null, null);</div><div class="line">		Node n2 = T.new Node(5, null, null, null);</div><div class="line">		Node n3 = T.new Node(18, null, null, null);</div><div class="line">		Node n4 = T.new Node(2, null, null, null);</div><div class="line">		Node n5 = T.new Node(9, null, null, null);</div><div class="line">		Node n6 = T.new Node(15, null, null, null);</div><div class="line">		Node n7 = T.new Node(19, null, null, null);</div><div class="line">		Node n8 = T.new Node(13, null, null, null);</div><div class="line">		Node n9 = T.new Node(17, null, null, null);</div><div class="line"></div><div class="line">		T.treeInsert(n1);</div><div class="line">		T.treeInsert(n2);</div><div class="line">		T.treeInsert(n3);</div><div class="line">		T.treeInsert(n4);</div><div class="line">		T.treeInsert(n5);</div><div class="line">		T.treeInsert(n6);</div><div class="line">		T.treeInsert(n7);</div><div class="line">		T.treeInsert(n8);</div><div class="line">		T.treeInsert(n9);</div><div class="line">		T.treeDelete(n3);</div><div class="line"></div><div class="line">		System.out.println(T.treeSearch(T.head, 17).getKey()); // 17</div><div class="line">		System.out.println(T.treeSuccessor(n1).getKey()); // 13</div><div class="line">		System.out.println(T.head.getRight().getRight().getKey()); // 19</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">算法导论</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/12/binarysearchtree/">Show all >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post- basicdatastructure" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
