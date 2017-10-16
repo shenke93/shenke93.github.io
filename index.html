@@ -143,6 +143,118 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-dbcbch1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/16/dbcbch1/">Overview of DBMS [Database]</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/16/dbcbch1/" class="archive-article-date">
+  	<time datetime="2017-10-16T14:10:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This is one of the reading notes of <em>Database System Complete Book, 2nd edition</em>.<br><strong>DBMS features:</strong></p>
+<ol>
+<li>Allow users to create new databases and specify their <em>schemas</em> (logical structure of data) with a <em>data-definition language</em>.</li>
+<li>Give users the ability to <em>query</em> the data and <em>modify</em> the data with a <em>query language (data manipulation language)</em>.</li>
+<li>Support large amounts of data.</li>
+<li><em>Durability</em>, recovery of failure.</li>
+<li><em>Isolation</em> for users and <em>atomicity</em> for users.</li>
+</ol>
+<p><em>Data warehouse</em>:<br>Merge legacy databases to a central database.</p>
+<p><em>Middle-ware</em>:<br>Support an integrated model of the data of various databases.</p>
+<p>Two distinct sources of commands:</p>
+<ol>
+<li>Conventional users and application programs</li>
+<li>Database administrator</li>
+</ol>
+<p>Query -&gt; Query compiler -&gt; Execution engine -&gt; Buffer Manager</p>
+<p>Transaction -&gt; Concurrency-control manager / Logging and recovery manager</p>
+<p>Queries and other DML actions are grouped into <strong><em>transactions</em></strong>, which are units that must be executed atomically and isolation form each other.</p>
+<p><strong>Storage manager:</strong> control the placement of data on disk and its movement between disk and main memory</p>
+<p><strong>Buffer manager:</strong> partitioning the available main memory into buffers, which are page-sized regions into which disk blocks can be transferred.</p>
+<p>All DBMS components that need information from the disk will interact with the buffers and the buffer manager. This kinds of information may include:</p>
+<ol>
+<li>Data</li>
+<li>Metadata: the database schema that describes the structure of, and constraints on the database.</li>
+<li>Log Records: recent changes to the database</li>
+<li>Statistics: data properties</li>
+<li>Indexes: support efficient access of data</li>
+</ol>
+<p><strong>Transaction processor</strong> performs the following tasks:</p>
+<ol>
+<li>Logging: log/recovery manager</li>
+<li>Concurrency control: scheduler</li>
+<li>Deadlock resolution</li>
+</ol>
+<p><strong>Query processor</strong> is represented by two components:</p>
+<ol>
+<li>The query compiler: a query parser, a query preprocessor, a query optimizer.</li>
+<li>The execution engine.</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Database-System-Complete-Book</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/16/dbcbch1/">Show all >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-binarysearchtree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -976,6 +1088,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">算法导论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Database-System-Complete-Book</a>
               </li>
              
               <li class="article-tag-list-item">
